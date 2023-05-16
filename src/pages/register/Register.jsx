@@ -1,6 +1,38 @@
+import { useReducer, useRef } from "react";
 import "./register.css";
+import {useHistory} from "react-router-dom";
+import axios from "axios";
+
 
 export default function Register() {
+  const username = useRef();
+  const email = useRef();
+  const password = useRef();
+  const passwordAgain = useRef();
+  const history = useHistory();
+
+  const handleClick = async (e)=>{
+    e.preventDefault();
+    if (passwordAgain.current.value !== password.current.value){
+      passwordAgain.current.setCustomValidity("Passwords don't match!");
+    }
+    else{
+      const user = {
+        username: username.current.value,
+        email: email.current.value,
+        password: password.current.value
+      };
+
+      try{
+        await axios.post("/auth/register", user)
+        history.push("/login")
+      }catch(err){
+        console.log(err);
+      }
+    }
+  }
+
+
   return (
     <div className="login">
       <div className="loginWrapper">
@@ -11,16 +43,16 @@ export default function Register() {
           </span>
         </div>
         <div className="loginRight">
-          <div className="loginBox">
-            <input placeholder="Username" className="loginInput" />
-            <input placeholder="Email" className="loginInput" />
-            <input placeholder="Password" className="loginInput" />
-            <input placeholder="Password Again" className="loginInput" />
-            <button className="loginButton">Sign Up</button>
+          <form onSubmit={handleClick} className="loginBox">
+            <input placeholder="Username" type="text" ref={username} required className="loginInput" />
+            <input placeholder="Email" type="email" ref={email} required className="loginInput" />
+            <input placeholder="Password" type="password" minLength={6} ref={password} required className="loginInput" />
+            <input placeholder="Password Again" type="password" minLength={6} required ref={passwordAgain} className="loginInput" />
+            <button type="submit" className="loginButton">Sign Up</button>
             <button className="loginRegisterButton">
               Log into Account
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
