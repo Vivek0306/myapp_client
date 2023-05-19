@@ -13,14 +13,13 @@ export default function Login() {
     e.preventDefault();
     loginCall({email:email.current.value, password:password.current.value}, dispatch)
   }
-  console.log(user)
   return (
     <div className="login">
       <div className="loginWrapper">
         <div className="loginLeft">
-          <h3 className="loginLogo">Lamasocial</h3>
+          <h3 className="loginLogo">BrosBook</h3>
           <span className="loginDesc">
-            Connect with friends and the world around you on Lamasocial.
+            Connect with friends and the world around you on BrosBook.
           </span>
         </div>
         <div className="loginRight">

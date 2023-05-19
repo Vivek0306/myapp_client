@@ -12,19 +12,21 @@ export default function Rightbar({ user }) {
   const [friends, setFriends] = useState([])
   const {user:currentUser, dispatch} = useContext(AuthContext)
   const [followed, setFollowed] = useState(currentUser.following .includes(user?.id))
+  console.log(user)
 
-
-  useEffect(()=>{
-    const getFriends = async () =>{
-      try{
-        const friendList = await axios.get("/users/friends/"+ user._id)
-        setFriends(friendList.data);
-      }catch(err){
-        console.log(err)
-      }
+  useEffect(() => {
+    if (user) {
+      const getFriends = async () => {
+        try {
+          const friendList = await axios.get("/users/friends/" + user._id);
+          setFriends(friendList.data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      getFriends();
     }
-    getFriends();
-  }, [user])
+  }, [user]);
 
   const handleClick = async () => {
     try{
@@ -106,6 +108,7 @@ export default function Rightbar({ user }) {
       </>
     );
   };
+
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">

@@ -1,6 +1,6 @@
-import { useReducer, useRef } from "react";
+import { useRef } from "react";
 import "./register.css";
-import {useHistory} from "react-router-dom";
+import {useHistory, Link } from "react-router-dom";
 import axios from "axios";
 
 
@@ -37,9 +37,9 @@ export default function Register() {
     <div className="login">
       <div className="loginWrapper">
         <div className="loginLeft">
-          <h3 className="loginLogo">Lamasocial</h3>
+          <h3 className="loginLogo">BrosBook</h3>
           <span className="loginDesc">
-            Connect with friends and the world around you on Lamasocial.
+            Connect with friends and the world around you on BrosBook.
           </span>
         </div>
         <div className="loginRight">
@@ -49,9 +49,12 @@ export default function Register() {
             <input placeholder="Password" type="password" minLength={6} ref={password} required className="loginInput" />
             <input placeholder="Password Again" type="password" minLength={6} required ref={passwordAgain} className="loginInput" />
             <button type="submit" className="loginButton">Sign Up</button>
-            <button className="loginRegisterButton">
-              Log into Account
-            </button>
+            <Link to={`/login`} className="loginRegisterButtonLink">
+              <button className="loginRegisterButton">
+                Log into Account
+              </button>
+            </Link>
+
           </form>
         </div>
       </div>
